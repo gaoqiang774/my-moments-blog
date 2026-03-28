@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游记 Journeys | Moments in Light</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-bg-journeys {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('./images/child-mountain-blue-2017-a.jpg') center 40%/cover no-repeat;
+            z-index: -1;
+            transform: scale(1.05);
+        }
+        .hero-bg-journeys::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(12, 31, 49, 0.22) 0%, rgba(12, 31, 49, 0.08) 40%, rgba(248, 240, 228, 0.95) 100%),
+                linear-gradient(90deg, rgba(0, 155, 186, 0.15), rgba(255, 176, 122, 0.08));
+        }
+        .journey-card {
+            display: flex;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 40px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .journey-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(31, 53, 80, 0.15);
+        }
+        .journey-img {
+            flex: 0 0 50%;
+            overflow: hidden;
+        }
+        .journey-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .journey-card:hover .journey-img img {
+            transform: scale(1.05);
+        }
+        .journey-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .journey-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .journey-content .date {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .journey-content p {
+            color: #536674;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        @media (max-width: 768px) {
+            .journey-card {
+                flex-direction: column;
+            }
+            .journey-img {
+                height: 250px;
+            }
+            .journey-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Moments</a>
+        <div class="nav-links">
+            <a href="index.html">首页 Home</a>
+            <a href="journeys.html" style="color: #000; font-weight: 700;">游记 Journeys</a>
+            <a href="#">图库 Gallery</a>
+            <a href="#">关于 About</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="min-height: 60vh; height: 60vh;">
+        <div class="hero-bg-journeys"></div>
+        <div class="hero-content">
+            <div class="hero-kicker">Travel & Exploring</div>
+            <h1 class="hero-title">去看更大的世界</h1>
+            <p class="hero-subtitle">山谷的风、海岛的浪、还有路上的每一张侧脸。打包行李，带上好奇，记录每一次看风景的样子。</p>
+        </div>
+    </header>
+
+    <!-- Journeys List -->
+    <main class="gallery" style="max-width: 1000px;">
+        <h2 class="section-title">在路上 On the Way</h2>
+        
+        <a href="post.html" class="journey-card moment-card reveal">
+            <div class="journey-img">
+                <img src="./images/child-maldives-sand-2017.jpg" alt="马尔代夫海滩">
+            </div>
+            <div class="journey-content">
+                <h3>马尔代夫的盛夏</h3>
+                <div class="date">2017 夏天 · Maldives</div>
+                <p>第一次见到那么透明的海水和那么白细的沙滩。小小的身影在岸边执着地挖沙子，海风吹在脸上，带来全是关于夏天的记忆。那是一个不需要做复杂计划，只需要享受阳光和假期的旅行。</p>
+            </div>
+        </a>
+
+        <a href="post.html" class="journey-card moment-card reveal">
+            <div class="journey-img">
+                <img src="./images/child-mountain-blue-2017-a.jpg" alt="山路旅行">
+            </div>
+            <div class="journey-content">
+                <h3>薄雾升起的山路</h3>
+                <div class="date">2017 秋天 · Mountains</div>
+                <p>穿过还带着湿气的晨雾，走在两边都是绿色的山路上。走得很慢，不时停下来研究路边的植物或者形状奇特的石头。虽然是阴天，但穿着蓝色衣服走在山里的样子，成了旅途中很安静特别的一个画面。</p>
+            </div>
+        </a>
+
+        <a href="post.html" class="journey-card moment-card reveal">
+            <div class="journey-img">
+                <img src="./images/child-hiking-jacket-2021.jpg" alt="户外徒步">
+            </div>
+            <div class="journey-content">
+                <h3>山谷里的一次徒步</h3>
+                <div class="date">2021 秋天 · Valley Hike</div>
+                <p>这已经不仅仅是玩耍，而是更需要体力的户外徒步。带上装备，走过狭窄的路段，站在稍微高一点的地方看景色，不仅长高了，面对自然时的态度也变得勇敢和平静。</p>
+            </div>
+        </a>
+
+        <a href="post.html" class="journey-card moment-card reveal">
+            <div class="journey-img">
+                <img src="./images/child-hot-spring-2022.jpg" alt="夏日温泉">
+            </div>
+            <div class="journey-content">
+                <h3>山间温泉的悠长假日</h3>
+                <div class="date">2022 夏天 · Hot Springs Resort</div>
+                <p>旅途越来越有一种从容感。在阳光充足的下午泡在池子里，整理泳镜、感受水波，哪怕没有去冲浪爬山，光是这种完全放松下来的姿态，就是一次完美的出游状态了。</p>
+            </div>
+        </a>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Moments in Light. Designed with 🤍 to capture beautiful memories.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
