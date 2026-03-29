@@ -15,7 +15,6 @@ document.addEventListener('scroll', () => {
 // Fetch posts
 async function fetchPosts() {
     try {
-        // Added cache bust to ensure freshness during dev
         const response = await fetch('./data.json?t=' + new Date().getTime());
         const data = await response.json();
         return data.posts;
@@ -25,21 +24,34 @@ async function fetchPosts() {
     }
 }
 
+// Wait for all images inside a container to finish loading
+function waitForImages(container) {
+    const images = container.querySelectorAll('img');
+    const promises = Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve; // don't block on broken images
+        });
+    });
+    return Promise.all(promises);
+}
+
 // Render dynamic lists (Home or Journeys)
 async function renderCards() {
     const grid = document.querySelector('.masonry-grid');
-    if (!grid) return; // Only execute if grid exists
+    if (!grid) return;
 
     const isJourney = window.location.pathname.includes('journeys.html');
     const posts = await fetchPosts();
     
-    // Filter by category
     const filtered = posts.filter(p => isJourney ? p.category === 'journey' : p.category === 'moment');
     
-    // Sort array so newest id is typically top, though relying directly on array order is also fine.
     grid.innerHTML = '';
     
-    filtered.reverse().forEach((post, index) => {
+    // Build all card elements first (hidden via CSS opacity:0)
+    const cards = [];
+    filtered.reverse().forEach((post) => {
         const a = document.createElement('a');
         a.href = `post.html?id=${post.id}`;
         
@@ -68,8 +80,14 @@ async function renderCards() {
         }
         
         grid.appendChild(a);
-        
-        // Trigger reveal animation
+        cards.push(a);
+    });
+
+    // Wait for ALL images to load so the browser can calculate correct column heights
+    await waitForImages(grid);
+
+    // Now reveal cards with staggered animation
+    cards.forEach((a, index) => {
         setTimeout(() => {
             a.classList.add('reveal');
         }, (index % 3) * 150 + 50);
@@ -79,7 +97,7 @@ async function renderCards() {
 // Render post.html detail view
 async function renderPostDetail() {
     const main = document.querySelector('.post-container');
-    if (!main) return; // Only execute on post page
+    if (!main) return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id') || "1";
@@ -92,17 +110,14 @@ async function renderPostDetail() {
         return;
     }
 
-    // Set page title
     document.title = `${post.title} | Moments in Light`;
 
-    // Process markdown (basic simple string replacement for markdown images and paragraphs if marked.js is not present)
     let contentHtml = post.content;
     if (typeof marked !== 'undefined') {
         contentHtml = marked.parse(post.content);
     } else {
-        // Fallback naive parser
         contentHtml = contentHtml
-            .replace(/!\[.*?\]\((.*?)\)/g, '<img src="$1" style="width: 100%; border-radius: 20px; box-shadow: 0 16px 35px rgba(31,53,80,0.08); margin: 30px 0;">')
+            .replace(/!\[.*?\]\((.*?)\)/g, '<img src="$1">')
             .replace(/\n\n/g, '</p><p>')
             .replace(/\n/g, '<br>');
         contentHtml = `<p>${contentHtml}</p>`;
@@ -123,7 +138,7 @@ async function renderPostDetail() {
                     <p>${post.summary}</p>
                 </div>
                 
-                <div class="post-content-html" style="margin-top: 40px; font-size: 1.15rem; line-height: 1.8; color: #42586c;">
+                <div class="post-content-html">
                     ${contentHtml}
                 </div>
             </div>
@@ -132,7 +147,6 @@ async function renderPostDetail() {
     
     main.innerHTML = html;
     
-    // Animate
     setTimeout(() => {
         const article = main.querySelector('.post-card');
         if (article) {
