@@ -45,7 +45,7 @@ async function renderCards() {
     const isJourney = window.location.pathname.includes('journeys.html');
     const posts = await fetchPosts();
     
-    const filtered = posts.filter(p => isJourney ? p.category === 'journey' : p.category === 'moment');
+    const filtered = posts.filter(p => isJourney ? true : p.category === 'moment');
     
     grid.innerHTML = '';
     
