@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
             z-index: -1;
             transform: scale(1.05);
         }
+
         .hero-bg-journeys::after {
             content: '';
             position: absolute;
@@ -25,6 +27,7 @@
                 linear-gradient(180deg, rgba(12, 31, 49, 0.22) 0%, rgba(12, 31, 49, 0.08) 40%, rgba(248, 240, 228, 0.95) 100%),
                 linear-gradient(90deg, rgba(0, 155, 186, 0.15), rgba(255, 176, 122, 0.08));
         }
+
         .journey-card {
             display: flex;
             background: var(--glass-bg);
@@ -38,34 +41,41 @@
             color: inherit;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
+
         .journey-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 50px rgba(31, 53, 80, 0.15);
         }
+
         .journey-img {
             flex: 0 0 50%;
             overflow: hidden;
         }
+
         .journey-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
         }
+
         .journey-card:hover .journey-img img {
             transform: scale(1.05);
         }
+
         .journey-content {
             padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
+
         .journey-content h3 {
             font-size: 1.8rem;
             margin-bottom: 10px;
             color: var(--primary-color);
         }
+
         .journey-content .date {
             font-size: 0.95rem;
             color: var(--secondary-color);
@@ -73,27 +83,33 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
         .journey-content p {
             color: #536674;
             font-size: 1.05rem;
             line-height: 1.7;
         }
+
         @media (max-width: 768px) {
             .journey-card {
                 flex-direction: column;
             }
+
             .journey-img {
                 height: 250px;
             }
+
             .journey-content {
                 padding: 30px 20px;
             }
         }
+
         .masonry-grid {
             column-count: 1 !important;
         }
     </style>
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -120,7 +136,7 @@
     <!-- Journeys List -->
     <main class="gallery" style="max-width: 1000px;">
         <h2 class="section-title">在路上 On the Way</h2>
-        
+
         <div class="masonry-grid"></div>
 
     </main>
@@ -131,4 +147,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
