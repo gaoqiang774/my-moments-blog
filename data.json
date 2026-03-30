@@ -2,12 +2,12 @@
   "posts": [
     {
       "id": "1",
-      "category": "moment",
       "title": "海边玩沙的那个下午",
       "date": "2017 夏天",
+      "category": "moment",
       "coverImage": "./images/child-maldives-sand-2017.jpg",
       "summary": "海水刚刚漫上来，白沙细得发亮，专心挖沙的小小背影把整个海岛假期都变得具体起来。",
-      "content": "这次整理的不只是一段旅程，而是几年里慢慢累积起来的成长样子。\n\n![海边白沙](./images/child-maldives-sand-2017.jpg)"
+      "content": "这次整理的不只是一段旅程，而是几年里慢慢累积起来的成长样子。\n\n![海边白沙](./images/child-maldives-sand-2017.jpg)\n\n![测试](./images/post-1774862876612-720971433.png)\n\n"
     },
     {
       "id": "2",
