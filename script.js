@@ -47,11 +47,30 @@ async function renderCards() {
     
     const filtered = posts.filter(p => isJourney ? true : p.category === 'moment');
     
+    // Parse date string to sortable number (e.g. "2017 夏天" → 2017.2, "2025年秋" → 2025.3)
+    function parseDateValue(dateStr) {
+        const yearMatch = dateStr.match(/(\d{4})/);
+        const year = yearMatch ? parseInt(yearMatch[1]) : 0;
+        const seasonMap = { '春': 0.1, '夏': 0.2, '秋': 0.3, '冬': 0.4 };
+        let season = 0;
+        for (const [key, val] of Object.entries(seasonMap)) {
+            if (dateStr.includes(key)) { season = val; break; }
+        }
+        return year + season;
+    }
+
+    // Sort: journeys by date (newest first), home by original reverse order
+    if (isJourney) {
+        filtered.sort((a, b) => parseDateValue(b.date) - parseDateValue(a.date));
+    } else {
+        filtered.reverse();
+    }
+
     grid.innerHTML = '';
     
     // Build all card elements first (hidden via CSS opacity:0)
     const cards = [];
-    filtered.reverse().forEach((post) => {
+    filtered.forEach((post) => {
         const a = document.createElement('a');
         a.href = `post.html?id=${post.id}`;
         
