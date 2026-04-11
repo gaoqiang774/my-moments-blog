@@ -80,6 +80,26 @@ app.post('/api/posts', (req, res) => {
     }
 });
 
+// API: Delete post
+app.delete('/api/posts/:id', (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!fs.existsSync(dataFilePath)) {
+            return res.status(404).json({ error: 'Data file not found' });
+        }
+        let data = JSON.parse(fs.readFileSync(dataFilePath, 'utf8'));
+        const index = data.posts.findIndex(p => String(p.id) === String(id));
+        if (index === -1) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        data.posts.splice(index, 1);
+        fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // API: Upload image
 app.post('/api/upload', upload.single('image'), (req, res) => {
     if (!req.file) {

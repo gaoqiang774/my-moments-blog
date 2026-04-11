@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -204,6 +204,14 @@
             background: #5f7f95;
         }
 
+        .btn-danger {
+            background: #c63939;
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 8px 18px rgba(198, 57, 57, 0.18);
+        }
+
         .cover-preview {
             display: none;
             width: 100%;
@@ -333,8 +341,9 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 10px;">
-                    <button type="button" class="btn" style="width: 100%; padding: 14px 16px;" onclick="savePost()">保存文章到本地</button>
+                <div style="margin-top: 10px; display: flex; gap: 12px;">
+                    <button type="button" class="btn" style="flex: 1; padding: 14px 16px;" onclick="savePost()">保存文章到本地</button>
+                    <button type="button" id="deleteBtn" class="btn btn-danger" style="display: none; padding: 14px 16px;" onclick="deletePost()">删除此文章</button>
                 </div>
             </form>
         </main>
@@ -413,6 +422,8 @@
             document.getElementById("postSummary").value = post.summary || "";
             document.getElementById("postContent").value = post.content || "";
 
+            document.getElementById("deleteBtn").style.display = "block";
+
             updateCoverPreview();
             renderList();
         }
@@ -422,6 +433,7 @@
             document.getElementById("postForm").reset();
             document.getElementById("postId").value = "";
             document.getElementById("coverPreview").style.display = "none";
+            document.getElementById("deleteBtn").style.display = "none";
             renderList();
         }
 
@@ -522,6 +534,32 @@
             } catch (error) {
                 console.error(error);
                 alert("保存失败，请确认后台服务正常运行。");
+            }
+        }
+
+        async function deletePost() {
+            const id = document.getElementById("postId").value;
+            if (!id) return;
+
+            if (!confirm("确定要删除这篇文章吗？此操作不可撤销。")) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/posts/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!res.ok) {
+                    throw new Error("删除失败");
+                }
+
+                showToast("删除成功");
+                await loadPosts();
+                createNewPost();
+            } catch (error) {
+                console.error(error);
+                alert("删除失败，请确认后台服务正常运行。");
             }
         }
 
