@@ -139,7 +139,7 @@
       "id": "16",
       "title": "抱着果汁瓶的小满足",
       "date": "2011 夏天",
-      "category": "moment",
+      "category": "journey",
       "coverImage": "./images/baby-juice-smile.jpg",
       "summary": "胖嘟嘟的小脸上全是笑意，双手紧紧抱着一瓶果汁，好像拥有了全世界最好的东西。",
       "content": "那个时候，快乐就是这么简单。\n\n一瓶凉凉的果汁，抱在怀里比什么都珍贵。小手紧紧握着瓶身，嘴角弯弯的，眼睛里闪着那种只有最单纯的满足才有的光。\n\n不需要很大的世界，一小瓶甜就够了。\n\n![果汁瓶](./images/baby-juice-smile.jpg)"
@@ -182,12 +182,21 @@
     },
     {
       "id": "21",
-      "title": "山巅的落日与少年",
+      "title": "Sunset on the peak (Updated)",
       "date": "2023 冬天",
       "category": "moment",
       "coverImage": "./images/sunset-peak-red-jacket-2023.jpg",
       "summary": "穿着红色羽绒服站在观景台上，身后的夕阳正好沉入群山之间，暖光铺满了整个山脊，像一幅真正的油画。",
       "content": "冬天的山顶特别冷，但日落的那一刻让一切都值了。\n\n太阳慢慢地沉到群山背后，把天空和远处的山脊都染成了金橙色。戴着 NY 的黑色棒球帽，穿着鲜红色的羽绒服，站在观景台的栏杆旁边。身后的山路蜿蜒向远方，层层叠叠的山峦变成了剪影。\n\n这一刻安静又壮阔。十岁的少年站在日落里，像是准备好了要去更远的地方。\n\n![山巅落日](./images/sunset-peak-red-jacket-2023.jpg)"
+    },
+    {
+      "title": "Test Post",
+      "date": "2026 Test",
+      "category": "moment",
+      "coverImage": "./images/test.jpg",
+      "summary": "Testing submission",
+      "content": "This is a test post.",
+      "id": "1775492046127"
     }
   ]
 }
