@@ -3,16 +3,46 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const basicAuth = require('express-basic-auth');
+const { exec } = require('child_process');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// Configuration for basic auth
+const adminPassword = process.env.ADMIN_PASSWORD || 'admin888';
+const authMiddleware = basicAuth({
+    users: { 'admin': adminPassword },
+    challenge: true,
+    realm: 'Moments Admin Area'
+});
+
+// Helper for automated git push
+function syncToGit() {
+    console.log('🔄 Syncing changes to git...');
+    // If running on a cloud server, use GITHUB_TOKEN to authenticate push
+    if (process.env.GITHUB_TOKEN) {
+        exec(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/gaoqiang774/my-moments-blog.git`, { cwd: path.join(__dirname, '../') });
+    }
+    exec('git add . && git commit -m "Auto Update from CMS" && git push', { cwd: path.join(__dirname, '../') }, (err, stdout, stderr) => {
+        if (err) {
+            console.error('❌ Git push failed:', err.message);
+        } else {
+            console.log('✅ Successfully pushed to GitHub!');
+        }
+    });
+}
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve the admin panel
-app.use('/admin', express.static(path.join(__dirname, 'public')));
+// Protect API routes
+app.use('/api', authMiddleware);
+
+// Serve the admin panel (Protected)
+app.use('/admin', authMiddleware, express.static(path.join(__dirname, 'public')));
 // Serve blog files for preview
 app.use('/', express.static(path.join(__dirname, '../')));
 
@@ -75,6 +105,7 @@ app.post('/api/posts', (req, res) => {
         
         fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
         res.json({ success: true, post: newPost });
+        syncToGit();
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -95,6 +126,7 @@ app.delete('/api/posts/:id', (req, res) => {
         data.posts.splice(index, 1);
         fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
         res.json({ success: true });
+        syncToGit();
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -107,6 +139,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     }
     // Return relative path to be used right away
     res.json({ url: `./images/${req.file.filename}` });
+    syncToGit();
 });
 
 app.listen(PORT, () => {
