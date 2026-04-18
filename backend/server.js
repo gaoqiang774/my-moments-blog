@@ -25,7 +25,10 @@ function syncToGit() {
     if (process.env.GITHUB_TOKEN) {
         exec(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/gaoqiang774/my-moments-blog.git`, { cwd: path.join(__dirname, '../') });
     }
-    exec('git add . && git commit -m "Auto Update from CMS" && git push', { cwd: path.join(__dirname, '../') }, (err, stdout, stderr) => {
+    // On cloud platforms like Render, we must configure git user before committing
+    const gitCmd = 'git config user.email "bot@moments-blog.com" && git config user.name "CMS Bot" && git add . && git commit -m "Auto Update from CMS" && git push';
+    
+    exec(gitCmd, { cwd: path.join(__dirname, '../') }, (err, stdout, stderr) => {
         if (err) {
             console.error('❌ Git push failed:', err.message);
         } else {
