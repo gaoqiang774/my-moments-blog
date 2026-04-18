@@ -188,6 +188,15 @@
       "coverImage": "./images/sunset-peak-red-jacket-2023.jpg",
       "summary": "穿着红色羽绒服站在观景台上，身后的夕阳正好沉入群山之间，暖光铺满了整个山脊，像一幅真正的油画。",
       "content": "冬天的山顶特别冷，但日落的那一刻让一切都值了。\n\n太阳慢慢地沉到群山背后，把天空和远处的山脊都染成了金橙色。戴着 NY 的黑色棒球帽，穿着鲜红色的羽绒服，站在观景台的栏杆旁边。身后的山路蜿蜒向远方，层层叠叠的山峦变成了剪影。\n\n这一刻安静又壮阔。十岁的少年站在日落里，像是准备好了要去更远的地方。\n\n![山巅落日](./images/sunset-peak-red-jacket-2023.jpg)"
+    },
+    {
+      "title": "Test Auto Git Push",
+      "date": "2026-04-18",
+      "category": "moment",
+      "coverImage": "./images/test.jpg",
+      "summary": "Test summary.",
+      "content": "This is a test from the assistant.",
+      "id": "1776489668202"
     }
   ]
 }
